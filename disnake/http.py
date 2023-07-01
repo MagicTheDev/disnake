@@ -70,6 +70,7 @@ if TYPE_CHECKING:
         message,
         onboarding,
         role,
+        soundboard,
         sticker,
         template,
         threads,
@@ -2625,6 +2626,11 @@ class HTTPClient:
             command_id=command_id,
         )
         return self.request(r)
+
+    # Soundboard
+
+    def get_soundboard_default_sounds(self) -> Response[List[soundboard.SoundboardSound]]:
+        return self.request(Route("GET", "/soundboard-default-sounds"))
 
     # Misc
 
