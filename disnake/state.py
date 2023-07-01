@@ -1815,6 +1815,8 @@ class ConnectionState:
             )
 
         raw = RawVoiceChannelEffectEvent(data, emoji)
+        if raw.effect.sound:
+            raw.effect.sound._state = self  # attach state to asset
 
         # TODO: narrow channel type to VoiceChannel?
         channel = guild.get_channel(raw.channel_id)
