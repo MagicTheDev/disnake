@@ -2161,6 +2161,7 @@ class Client:
         data = await self.http.get_widget(guild_id)
         return Widget(state=self._connection, data=data)
 
+    # TODO: naming (fetch_default_sounds?)
     async def fetch_default_soundboard_sounds(self) -> List[SoundboardSound]:
         """|coro|
 
@@ -2177,7 +2178,7 @@ class Client:
             The default soundboard sounds.
         """
         data = await self.http.get_soundboard_default_sounds()
-        return [SoundboardSound(data=d, state=self._connection) for d in data]
+        return [SoundboardSound(data=d, state=self._connection, guild_id=None) for d in data]
 
     async def application_info(self) -> AppInfo:
         """|coro|
