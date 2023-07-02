@@ -21,6 +21,7 @@ from .member import MemberWithUser
 from .message import Message
 from .role import Role
 from .snowflake import Snowflake, SnowflakeList
+from .soundboard import SoundboardSound
 from .sticker import GuildSticker
 from .threads import Thread, ThreadMember, ThreadMemberWithPresence, ThreadType
 from .user import User
@@ -150,6 +151,18 @@ class RequestMembersData(TypedDict):
 class RequestMembersCommand(TypedDict):
     op: Literal[8]
     d: RequestMembersData
+
+
+# opcode 31
+
+
+class RequestSoundboardData(TypedDict):
+    guild_ids: List[int]
+
+
+class RequestSoundboardCommand(TypedDict):
+    op: Literal[31]
+    d: RequestSoundboardData
 
 
 #####
@@ -631,3 +644,9 @@ class AutoModerationActionExecutionEvent(TypedDict):
     content: NotRequired[str]
     matched_content: NotRequired[Optional[str]]
     matched_keyword: NotRequired[Optional[str]]
+
+
+# https://discord.com/developers/docs/topics/gateway-events#soundboard-sounds
+class SoundboardSoundsEvent(TypedDict):
+    guild_id: Snowflake
+    soundboard_sounds: List[SoundboardSound]
