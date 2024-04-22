@@ -87,7 +87,7 @@ async def _call_autocompleter(
         else:
             choices = autocomp(inter, user_input, **filled)
     except TypeError:
-        if requires_cog_param:
+        if not requires_cog_param:
             choices = autocomp(cog, inter, user_input)
         else:
             choices = autocomp(inter, user_input)
