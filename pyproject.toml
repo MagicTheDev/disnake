@@ -28,6 +28,7 @@ classifiers = [
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
     "Topic :: Internet",
     "Topic :: Software Development :: Libraries",
     "Topic :: Software Development :: Libraries :: Python Modules",
@@ -51,6 +52,7 @@ speed = [
 ]
 voice = [
     "PyNaCl>=1.5.0,<1.6",
+    'audioop-lts==0.2.1; python_version >= "3.13"'
 ]
 docs = [
     "sphinx==7.0.1",
@@ -125,7 +127,6 @@ runner = "pdm run"
 
 [tool.black]
 line-length = 100
-target-version = ["py38", "py39", "py310", "py311", "py312"]
 
 [tool.ruff]
 line-length = 100
@@ -213,6 +214,8 @@ ignore = [
     "S311",    # insecure RNG usage, we don't use these for security-related things
     "PLE0237", # pyright seems to catch this already
 
+    "E741",  # ambiguous variable names
+
     # temporary disables, to fix later
     "D205",   # blank line required between summary and description
     "D401",   # first line of docstring should be in imperative mood
@@ -248,7 +251,6 @@ ignore = [
     "T201", # print found, printing is okay in examples
 ]
 "examples/basic_voice.py" = ["S104"] # possible binding to all interfaces
-"examples/views/tic_tac_toe.py" = ["E741"] # ambigious variable name: `O`
 
 [tool.ruff.lint.isort]
 combine-as-imports = true

@@ -1446,8 +1446,8 @@ class Message(Hashable):
         # updated later in _update_member_references, after re-chunking
         if isinstance(self.author, Member):
             self.author.guild = new_guild
-        if self.interaction and isinstance(self.interaction.user, Member):
-            self.interaction.user.guild = new_guild
+        if self._interaction and isinstance(self._interaction.user, Member):
+            self._interaction.user.guild = new_guild
 
     @utils.cached_slot_property("_cs_raw_mentions")
     def raw_mentions(self) -> List[int]:
@@ -2511,6 +2511,7 @@ class PartialMessage(Hashable):
     - :meth:`StageChannel.get_partial_message`
     - :meth:`Thread.get_partial_message`
     - :meth:`DMChannel.get_partial_message`
+    - :meth:`GroupChannel.get_partial_message`
     - :meth:`PartialMessageable.get_partial_message`
 
     Note that this class is trimmed down and has no rich attributes.
@@ -2560,6 +2561,7 @@ class PartialMessage(Hashable):
             ChannelType.text,
             ChannelType.news,
             ChannelType.private,
+            ChannelType.group,
             ChannelType.news_thread,
             ChannelType.public_thread,
             ChannelType.private_thread,
@@ -2567,7 +2569,7 @@ class PartialMessage(Hashable):
             ChannelType.stage_voice,
         ):
             raise TypeError(
-                f"Expected TextChannel, VoiceChannel, DMChannel, StageChannel, Thread, or PartialMessageable "
+                f"Expected TextChannel, VoiceChannel, StageChannel, Thread, DMChannel, GroupChannel, or PartialMessageable "
                 f"with a valid type, not {type(channel)!r} (type: {channel.type!r})"
             )
 
